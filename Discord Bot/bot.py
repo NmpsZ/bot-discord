@@ -3,20 +3,22 @@ import discord
 import random
 import asyncio
 import time
+import os
 
 from discord.ext import commands
 from discord import app_commands
+from dotenv import load_dotenv
 
 
+
+load_dotenv()
 
 bot = commands.Bot(command_prefix='!',intents=discord.Intents.all())
-token = ''
+token = os.getenv("TOKEN")
 
 current_pokemon = None
 current_guess_pokemon = None
 guessed = False
-
-
 user_inventory = {}
 
 #ฟังก์ชั่นคำนวณสุ่มเวลาเป็นหน่วยนาที
@@ -363,16 +365,6 @@ async def catch_pokemon(interaction: discord.Interaction):
             current_pokemon = None
     else:
         await interaction.response.send_message("No Pokémon available to catch right now!")
-
-#@bot.tree.command(name="clear",description="clear chat")
-#@app_commands.describe(time = "What Time want to clear?")
-#async def clear_chat (interaction,time:str):
-    
-   # target_time = datetime.strptime(time, "%I:%M %p").time()
-    
-   # if (time == format_time):
-    #    de
-
 
 @bot.tree.command(name="guess", description="Guess Pokemon")
 @app_commands.describe(characters="Name:")
